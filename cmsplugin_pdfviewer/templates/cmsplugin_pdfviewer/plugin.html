@@ -4,6 +4,21 @@
     <h4>{% if object.title %}{{ object.title }}{% else %}{{ object.get_file_name }}{% endif %}</h4>
 
     {% if object.file_exists %}
+        <p class="plugin_file visible-xs visible-before">
+            <a href="{{ object.pdf.url }}">
+                {% if object.title %}
+                    <span class="filetitle">{{ object.title }}
+                {% else %}
+                    {{ object }}
+                {% endif %}
+                {% if object.file_exists %}
+                    <span class="filesize">({{ object.pdf.size|filesizeformat }})</span>
+                {% else %}
+                    ({% trans "file missing!" %})
+                {% endif %}
+                {% if object.title %}</span>{% endif %}
+            </a>
+        </p>
         <div class="plugin_pdfviewer-container hidden-xs">
             <div id="plugin_pdfviewer-doc-{{ object.pdf.pk }}" class="outerContainer-wrapper">
                 <div class="outerContainer loadingInProgress">
@@ -225,7 +240,7 @@
                 </div>
             </div>
         </div>
-        <p class="plugin_file visible-xs">
+        <p class="plugin_file visible-xs visible-after">
             <a href="{{ object.pdf.url }}">
                 {% if object.title %}
                     <span class="filetitle">{{ object.title }}
